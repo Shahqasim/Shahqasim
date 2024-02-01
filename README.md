@@ -20,7 +20,7 @@ I am currently focusing on enhancing my skills in Power BI and exploring cloud t
 
 ## Projects
 Here are some of my notable projects:
-- [Crime data analysis of Montgomery County, Maryland](https://github.com/Shahqasim/Crime-Data-Analysis)
+- [Crime data analysis of Montgomery County, Maryland](https://github.com/Shahqasim/Crime-Data-Analysis-of-Montgomery-County-Maryland)
 - [Statistical analysis using logistic regression on 2012 passenger survey data from San Francisco Airport (SFO)](https://github.com/Shahqasim/Statistical-Analysis-SFO-Survey)
 - [Classic machine learning on wine recognition dataset](https://github.com/Shahqasim/Wine-Recognition-ML)
 - [Medical image analysis of BloodMNIST and BreastMNIST datasets using Neural Networks](https://github.com/Shahqasim/Medical-Image-Analysis)
