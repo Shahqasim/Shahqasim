@@ -283,10 +283,10 @@
     seeBtn.addEventListener("click", () => setRegion(c.region));
     crisisGrid.append(
       el("article", { class: "crisis-card" }, [
-        el("figure", { class: "crisis-media" }, [
-          PHOTOS[c.photo] ? photoImg(c.photo) : null,
+        PHOTOS[c.photo] ? el("figure", { class: "crisis-media" }, [
+          photoImg(c.photo),
           el("span", { class: "code", "aria-hidden": "true", text: r.code }),
-        ]),
+        ]) : null,
         el("div", { class: "crisis-body" }, [
           el("h3", { text: r.name }),
           el("p", { text: c.text }),
@@ -304,6 +304,7 @@
   /* ------------------------------------------------------------------
    * HERO SLIDESHOW: one real photograph per situation
    * ---------------------------------------------------------------- */
+  const HERO_FOCUS = { hero: "18% 40%" }; // keep the people in frame when the photo is cropped
   const HERO = ["hero", "sudan", "lebanon", "afghanistan"].filter((k) => PHOTOS[k]);
   const slides = $("#hero-slides");
   const dots = $("#hero-dots");
@@ -311,7 +312,9 @@
   let heroTimer;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   HERO.forEach((k, i) => {
-    slides.append(photoImg(k, { loading: i === 0 ? "eager" : "lazy", alt: "", class: i === 0 ? "active" : "" }));
+    const img = photoImg(k, { loading: i === 0 ? "eager" : "lazy", alt: "", class: i === 0 ? "active" : "" });
+    if (HERO_FOCUS[k]) img.style.objectPosition = HERO_FOCUS[k];
+    slides.append(img);
     const b = el("button", { type: "button", "aria-label": "Show photo: " + PHOTOS[k].place, "aria-pressed": String(i === 0) });
     b.addEventListener("click", () => { showSlide(i); restartHero(); });
     dots.append(b);
@@ -330,6 +333,17 @@
     if (!reduceMotion && HERO.length > 1) heroTimer = setInterval(() => showSlide((heroIndex + 1) % HERO.length), 8000);
   }
   if (HERO.length) { showSlide(0); restartHero(); }
+
+  /* Photo slots in the page: filled only when the photo exists */
+  document.querySelectorAll("figure[data-photo]").forEach((fig) => {
+    const key = fig.dataset.photo;
+    if (!PHOTOS[key]) { fig.hidden = true; return; }
+    fig.append(photoImg(key), el("figcaption", { class: "photo-caption" }, credit(key)));
+  });
+  document.querySelectorAll("img[data-photo-bg]").forEach((img) => {
+    const p = PHOTOS[img.dataset.photoBg];
+    if (p) { img.src = p.src; img.hidden = false; }
+  });
 
   /* Static photo captions and the credits list */
   document.querySelectorAll("[data-credit]").forEach((node) => {

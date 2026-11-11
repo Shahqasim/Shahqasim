@@ -78,10 +78,7 @@
           <p class="tonight-close">None of them chose this. <strong>All of them can be helped.</strong> The aid groups are already there. What they need is the money to buy blankets, food and fuel before the coldest weeks arrive.</p>
           <a class="btn btn-primary" href="#calculator">See what my 5% can do</a>
         </div>
-        <figure class="tonight-photo">
-          <img src="images/gaza.jpg" alt="Tents of displaced Palestinian families standing in floodwater after heavy rain in Deir el-Balah, Gaza Strip" loading="lazy" width="1024" height="683">
-          <figcaption class="photo-caption" data-credit="gaza"></figcaption>
-        </figure>
+        <figure class="tonight-photo" data-photo="gaza"></figure>
       </div>
     </section>
 
@@ -166,10 +163,7 @@
             <label for="percent">Percentage you'll give: <output id="percent-out">5%</output></label>
             <input id="percent" type="range" min="1" max="20" step="0.5" value="5">
             <p class="hint">We suggest 5%, but any amount helps. Slide to whatever feels right.</p>
-            <figure class="calc-photo">
-              <img src="images/syria.jpg" alt="A young Syrian refugee boy outside his family's timber and plastic-sheet shelter in Lebanon's Bekaa Valley" loading="lazy" width="1000" height="666">
-              <figcaption class="photo-caption" data-credit="syria"></figcaption>
-            </figure>
+            <figure class="calc-photo" data-photo="syria"></figure>
           </form>
 
           <div class="calc-results" aria-live="polite">
@@ -207,7 +201,7 @@
         </p>
 
         <figure class="situation" id="situation" aria-live="polite">
-          <img id="situation-img" src="images/gaza2.jpg" alt="" loading="lazy">
+          <img id="situation-img" alt="">
           <div class="situation-shade" aria-hidden="true"></div>
           <figcaption class="situation-text">
             <span class="situation-place" id="situation-place">Everywhere the need is greatest</span>
@@ -256,10 +250,7 @@
             reminder for your payday and a message you can share to bring friends, family and colleagues with you.
           </p>
           <p class="hint">Nothing is sent to us. Your pledge stays on your device.</p>
-          <figure class="pledge-photo">
-            <img src="images/congo2.jpg" alt="Children in the Nyanzale camp for displaced people, North Kivu, Democratic Republic of the Congo" loading="lazy" width="1000" height="665">
-            <figcaption class="photo-caption" data-credit="congo2"></figcaption>
-          </figure>
+          <figure class="pledge-photo" data-photo="congo2"></figure>
         </div>
         <form class="pledge-form" id="pledge-form">
           <label for="p-name">Your first name (optional)</label>
@@ -321,7 +312,7 @@
 
     <!-- CTA -->
     <section class="cta">
-      <img class="cta-bg" src="images/sudan.jpg" alt="" loading="lazy">
+      <img class="cta-bg" data-photo-bg="sudan" alt="" hidden>
       <div class="cta-shade" aria-hidden="true"></div>
       <div class="container cta-inner">
         <h2>No one should freeze, starve or go without shelter because of where they were born.</h2>
