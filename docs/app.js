@@ -26,41 +26,49 @@
   const CRISES = [
     {
       region: "gaza",
+      photo: "gaza",
       text: "Since October 2023, war has displaced most of Gaza's 2.1 million people, many of them several times. Families shelter in tents and damaged buildings that flood in winter storms. In August 2025 UN-backed experts confirmed famine in Gaza City.",
       needs: ["Tents & tarpaulins", "Blankets", "Food parcels", "Medical care"],
     },
     {
       region: "lebanon",
+      photo: "lebanon",
       text: "At its peak, the 2024 war displaced more than a million people and destroyed homes across the south, the Bekaa and Beirut's suburbs. Lebanon also hosts large numbers of Syrian and Palestinian refugees, through an economic crisis that began in 2019.",
       needs: ["Heating fuel", "Winter clothes", "Food", "Rebuilding shelter"],
     },
     {
       region: "iran",
+      photo: "iran",
       text: "Families face economic hardship, the aftermath of the June 2025 war and frequent earthquakes. Iran hosts one of the world's largest refugee populations, most of them Afghans. Sanctions make it hard for aid to get in, so licensed organisations matter.",
       needs: ["Food", "Children's education", "Winter kits", "Health care"],
     },
     {
       region: "congo",
+      photo: "congo",
       text: "Decades of conflict in the east have forced millions of people from their homes. Fighting around Goma and Bukavu in 2025 brought new waves of displacement. In the rainy season, overcrowded camps flood and disease spreads fast.",
       needs: ["Shelter", "Clean water", "Food", "Care for survivors"],
     },
     {
       region: "sudan",
+      photo: "sudan",
       text: "Since war broke out in April 2023, Sudan has become the world's largest displacement crisis, with more than 10 million people forced from home. Famine has been confirmed in several areas, including parts of Darfur.",
       needs: ["Food", "Clean water", "Shelter", "Medical care"],
     },
     {
       region: "syria",
+      photo: "syria",
       text: "Millions of people are still displaced after years of war, many in camps in the north-west where snow and floods collapse tents every winter. Families returning home often find their houses destroyed.",
       needs: ["Heating & fuel", "Blankets", "Shelter repair", "Health care"],
     },
     {
       region: "yemen",
+      photo: "yemen",
       text: "Yemen remains one of the world's worst humanitarian crises. Years of war, a collapsed economy, hunger and disease mean most of the population needs aid to survive.",
       needs: ["Food", "Clean water", "Medical care", "Children's nutrition"],
     },
     {
       region: "afghanistan",
+      photo: "afghanistan",
       text: "Mountain winters, earthquakes, economic collapse and the return of millions of Afghans from Iran and Pakistan leave families without enough food or warm shelter.",
       needs: ["Winter kits", "Food", "Shelter", "Health care"],
     },
@@ -254,25 +262,88 @@
   /* ------------------------------------------------------------------
    * CRISES
    * ---------------------------------------------------------------- */
+  const PHOTOS = window.PHOTOS || {};
+  function credit(key) {
+    const p = PHOTOS[key];
+    if (!p) return null;
+    const frag = document.createDocumentFragment();
+    frag.append(`${p.place} · ${p.date} · Photo: ${p.credit} · `);
+    frag.append(el("a", { href: p.license_url || p.page, target: "_blank", rel: "noopener", text: p.license }));
+    return frag;
+  }
+  function photoImg(key, attrs = {}) {
+    const p = PHOTOS[key];
+    return el("img", { src: p.src, alt: p.alt, loading: "lazy", width: p.w, height: p.h, ...attrs });
+  }
+
   const crisisGrid = $("#crisis-grid");
   CRISES.forEach((c) => {
     const r = REGIONS[c.region];
-    const seeBtn = el("a", { class: "btn btn-primary", href: "#charities", "data-region": c.region, text: "See charities" });
+    const seeBtn = el("a", { class: "btn btn-primary", href: "#charities", "data-region": c.region, text: "Help here" });
     seeBtn.addEventListener("click", () => setRegion(c.region));
     crisisGrid.append(
       el("article", { class: "crisis-card" }, [
-        el("div", { class: "crisis-head" }, [
-          el("span", { class: "brand-badge", "aria-hidden": "true", text: r.code }),
-          el("h3", { text: r.name }),
+        el("figure", { class: "crisis-media" }, [
+          PHOTOS[c.photo] ? photoImg(c.photo) : null,
+          el("span", { class: "code", "aria-hidden": "true", text: r.code }),
         ]),
-        el("p", { text: c.text }),
-        el("ul", { class: "crisis-needs", "aria-label": "Urgent needs" }, c.needs.map((n) => el("li", { text: n }))),
-        el("div", { class: "crisis-actions" }, [
-          seeBtn,
-          el("a", { class: "link-quiet", href: r.reliefweb, target: "_blank", rel: "noopener", text: "Latest reports ↗" }),
+        el("div", { class: "crisis-body" }, [
+          el("h3", { text: r.name }),
+          el("p", { text: c.text }),
+          el("ul", { class: "crisis-needs", "aria-label": "Urgent needs" }, c.needs.map((n) => el("li", { text: n }))),
+          el("div", { class: "crisis-actions" }, [
+            seeBtn,
+            el("a", { class: "link-quiet", href: r.reliefweb, target: "_blank", rel: "noopener", text: "Latest reports ↗" }),
+          ]),
+          el("p", { class: "photo-caption" }, credit(c.photo)),
         ]),
       ])
     );
+  });
+
+  /* ------------------------------------------------------------------
+   * HERO SLIDESHOW: one real photograph per situation
+   * ---------------------------------------------------------------- */
+  const HERO = ["hero", "sudan", "lebanon", "afghanistan"].filter((k) => PHOTOS[k]);
+  const slides = $("#hero-slides");
+  const dots = $("#hero-dots");
+  let heroIndex = 0;
+  let heroTimer;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  HERO.forEach((k, i) => {
+    slides.append(photoImg(k, { loading: i === 0 ? "eager" : "lazy", alt: "", class: i === 0 ? "active" : "" }));
+    const b = el("button", { type: "button", "aria-label": "Show photo: " + PHOTOS[k].place, "aria-pressed": String(i === 0) });
+    b.addEventListener("click", () => { showSlide(i); restartHero(); });
+    dots.append(b);
+  });
+  function showSlide(i) {
+    heroIndex = i;
+    slides.querySelectorAll("img").forEach((img, j) => img.classList.toggle("active", j === i));
+    dots.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+    const cap = $("#hero-caption");
+    cap.replaceChildren();
+    const c = credit(HERO[i]);
+    if (c) cap.append(PHOTOS[HERO[i]].alt + ". ", c);
+  }
+  function restartHero() {
+    clearInterval(heroTimer);
+    if (!reduceMotion && HERO.length > 1) heroTimer = setInterval(() => showSlide((heroIndex + 1) % HERO.length), 8000);
+  }
+  if (HERO.length) { showSlide(0); restartHero(); }
+
+  /* Static photo captions and the credits list */
+  document.querySelectorAll("[data-credit]").forEach((node) => {
+    const c = credit(node.dataset.credit);
+    if (c) node.append(c);
+  });
+  const creditsList = $("#credits-list");
+  Object.values(PHOTOS).forEach((p) => {
+    creditsList.append(el("li", {}, [
+      el("a", { href: p.page, target: "_blank", rel: "noopener", text: p.alt }),
+      ` (${p.place}, ${p.date}). Photo: ${p.credit}. Licence: `,
+      el("a", { href: p.license_url || p.page, target: "_blank", rel: "noopener", text: p.license }),
+      ". Resized for the web.",
+    ]));
   });
 
   /* ------------------------------------------------------------------
@@ -284,6 +355,7 @@
     CA: "CAD", AU: "AUD", PK: "PKR", IN: "INR", BD: "BDT", AE: "AED", SA: "SAR", QA: "QAR", KW: "KWD",
     TR: "TRY", MY: "MYR", ID: "IDR", ZA: "ZAR", NG: "NGN", CH: "CHF", SE: "SEK", NO: "NOK",
   };
+  $("#calc-form").addEventListener("submit", (e) => e.preventDefault());
   const currencySel = $("#currency");
   CURRENCIES.forEach((c) => currencySel.append(el("option", { value: c, text: c })));
   const saved = store.get("calc") || {};
@@ -293,10 +365,10 @@
   if (saved.percent != null) $("#percent").value = saved.percent;
 
   const SPLIT = [
-    { label: "🍲 Food & clean water", pct: 35, color: "#e8743b" },
-    { label: "🧥 Warm clothes & blankets", pct: 25, color: "#f3b25b" },
-    { label: "⛺ Shelter & heating", pct: 25, color: "#5881be" },
-    { label: "🩺 Medical care", pct: 15, color: "#2f7d5b" },
+    { label: "Food & clean water", pct: 35, color: "#f08a3c" },
+    { label: "Warm clothes & blankets", pct: 25, color: "#d9a33b" },
+    { label: "Shelter & heating", pct: 25, color: "#6f93c4" },
+    { label: "Medical care", pct: 15, color: "#4f9a78" },
   ];
 
   function fmt(n, cur, compact) {
@@ -360,6 +432,27 @@
   }
   function setRegion(r) { state.region = r; syncChips(); renderCharities(); }
 
+  const SITUATION_DEFAULT = "gaza2";
+  function renderSituation() {
+    const region = state.region;
+    const crisis = CRISES.find((c) => c.region === region);
+    const key = crisis && PHOTOS[crisis.photo] ? crisis.photo : SITUATION_DEFAULT;
+    const p = PHOTOS[key];
+    const img = $("#situation-img");
+    if (p && img.getAttribute("src") !== p.src) {
+      img.classList.add("fading");
+      setTimeout(() => { img.src = p.src; img.alt = p.alt; img.classList.remove("fading"); }, reduceMotion ? 0 : 250);
+    } else if (p) { img.alt = p.alt; }
+    $("#situation-place").textContent = region === "all" ? "Everywhere the need is greatest" : REGIONS[region].name;
+    $("#situation-line").textContent = region === "all"
+      ? "Choose a place below to see the organisations helping there."
+      : crisis.needs.join(" · ") + ". These organisations are working there now.";
+    const cap = $("#situation-credit");
+    cap.replaceChildren();
+    const c = credit(key);
+    if (c) cap.append(c);
+  }
+
   makeChips($("#region-chips"), [["all", "All places"], ...Object.entries(REGIONS).map(([k, v]) => [k, v.name])], "region");
   makeChips($("#need-chips"), [["all", "All needs"], ...Object.entries(NEEDS)], "need");
   $("#search").addEventListener("input", (e) => { state.q = e.target.value.trim().toLowerCase(); renderCharities(); });
@@ -374,6 +467,7 @@
     // When a place is selected, show local organisations first.
     if (state.region !== "all") list = list.slice().sort((a, b) => (a.type === b.type ? 0 : a.type === "local" ? -1 : 1));
 
+    renderSituation();
     const placeLabel = state.region === "all" ? "" : " for " + REGIONS[state.region].name;
     $("#result-count").textContent = `${list.length} organisation${list.length === 1 ? "" : "s"}${placeLabel}`;
 

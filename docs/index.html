@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Five Percent for Humanity: Winter Appeal</title>
-  <meta name="description" content="Give 5% of your salary this winter to help families in Gaza, Lebanon, Iran, Congo, Sudan and other crisis zones get warm clothes, food and shelter. Donate directly to trusted on-the-ground charities.">
+  <title>Five Percent for Humanity</title>
+  <meta name="description" content="Give 5% of your salary this winter so families in Gaza, Lebanon, Iran, Congo, Sudan and other crisis zones get warm clothes, food and shelter. Donate directly to trusted charities working on the ground.">
   <meta property="og:title" content="Five Percent for Humanity: Winter Appeal">
-  <meta property="og:description" content="This winter, give 5% of your salary. Warm clothes, food and shelter for families in Gaza, Lebanon, Iran, Congo, Sudan and beyond.">
+  <meta property="og:description" content="This winter, millions of children will sleep in tents. Give 5% of your salary for warm clothes, food and shelter.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#0f1b2d">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23e8743b'/%3E%3Ctext x='32' y='42' font-size='26' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E5%25%3C/text%3E%3C/svg%3E">
+  <meta property="og:image" content="images/hero.jpg">
+  <meta name="theme-color" content="#0b1118">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f08a3c'/%3E%3Ctext x='32' y='42' font-size='26' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E5%25%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,700;1,6..72,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,38 +29,59 @@
         <span></span><span></span><span></span>
       </button>
       <nav id="nav-links" class="nav-links" aria-label="Main">
-        <a href="#why">Why 5%</a>
+        <a href="#tonight">Tonight</a>
         <a href="#crises">Crises</a>
-        <a href="#calculator">Calculator</a>
+        <a href="#calculator">Your 5%</a>
         <a href="#charities">Charities</a>
         <a href="#pledge">Pledge</a>
-        <a class="btn btn-small" href="#charities">Donate now</a>
+        <a class="btn btn-small btn-primary" href="#charities">Donate now</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <!-- HERO -->
-    <section class="hero" id="top">
+    <!-- HERO: photo slideshow, one slide per situation -->
+    <section class="hero" id="top" aria-label="Winter appeal">
+      <div class="hero-slides" id="hero-slides" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
       <div class="snow" aria-hidden="true"></div>
       <div class="container hero-inner">
         <p class="eyebrow">Winter Appeal · 2026–27</p>
-        <h1>This winter, give <span class="accent">5%</span> of your salary.<br>Keep a family warm, fed and sheltered.</h1>
+        <h1>This winter, millions of children will sleep in a tent.</h1>
         <p class="lead">
-          In Gaza, Lebanon, Iran, Congo, Sudan and other places hit by war and disaster, millions of
-          people will face this winter in tents, ruined buildings and open camps. Without warm clothes,
-          blankets, food and shelter, the cold kills, especially children and the elderly.
+          In Gaza, Lebanon, Iran, Congo, Sudan and other places hit by war and disaster, families face the
+          cold with no walls, no heating and not enough food. Give <strong>5% of your salary</strong> and help keep
+          one of them warm, fed and sheltered until spring.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#calculator">Work out my 5%</a>
-          <a class="btn btn-ghost" href="#charities">See trusted charities</a>
+          <a class="btn btn-ghost" href="#charities">Give to a charity</a>
         </div>
-        <ul class="hero-needs" aria-label="What your gift provides">
-          <li><span class="need-icon" aria-hidden="true">🧥</span> Warm clothes &amp; blankets</li>
-          <li><span class="need-icon" aria-hidden="true">🍲</span> Food &amp; clean water</li>
-          <li><span class="need-icon" aria-hidden="true">⛺</span> Shelter &amp; heating</li>
-          <li><span class="need-icon" aria-hidden="true">🩺</span> Medical care</li>
-        </ul>
+      </div>
+      <div class="container hero-foot">
+        <p class="photo-caption" id="hero-caption"></p>
+        <div class="hero-dots" id="hero-dots" role="group" aria-label="Choose photo"></div>
+      </div>
+    </section>
+
+    <!-- TONIGHT -->
+    <section class="tonight" id="tonight">
+      <div class="container tonight-grid">
+        <div class="tonight-text">
+          <p class="eyebrow">Tonight</p>
+          <ol class="tonight-lines">
+            <li><span class="you">You will close a door</span> against the cold, turn up the heating and pull a blanket over your children.</li>
+            <li><span>In Deir el-Balah, a mother will lie awake</span> listening to rain on a plastic sheet, scooping water out of the tent with a cooking pot.</li>
+            <li><span>In a camp in North Darfur, a father</span> will give his share of dinner to his daughter, because there is not enough for both of them.</li>
+            <li><span>In the Bekaa Valley, a grandmother</span> will burn shoes and plastic to keep a stove going, because she cannot afford fuel.</li>
+          </ol>
+          <p class="tonight-close">None of them chose this. <strong>All of them can be helped.</strong> The aid groups are already there. What they need is the money to buy blankets, food and fuel before the coldest weeks arrive.</p>
+          <a class="btn btn-primary" href="#calculator">See what my 5% can do</a>
+        </div>
+        <figure class="tonight-photo">
+          <img src="images/gaza.jpg" alt="Tents of displaced Palestinian families standing in floodwater after heavy rain in Deir el-Balah, Gaza Strip" loading="lazy" width="1024" height="683">
+          <figcaption class="photo-caption" data-credit="gaza"></figcaption>
+        </figure>
       </div>
     </section>
 
@@ -67,15 +89,15 @@
     <section class="trust" aria-label="How this site works">
       <div class="container trust-grid">
         <div>
-          <strong>100% goes to charities</strong>
+          <strong>Every penny goes to charities</strong>
           <span>This site never takes your money. Every link sends you straight to the charity's own donation page.</span>
         </div>
         <div>
-          <strong>On-the-ground organisations</strong>
-          <span>We list local and international groups already delivering aid inside crisis zones.</span>
+          <strong>Organisations already on the ground</strong>
+          <span>Local and international groups that are delivering aid inside crisis zones today.</span>
         </div>
         <div>
-          <strong>Your choice, your control</strong>
+          <strong>You choose where it goes</strong>
           <span>Pick the place and the need you care about most. Give once, or monthly through winter.</span>
         </div>
       </div>
@@ -94,8 +116,8 @@
           </p>
           <p>
             One person's 5% helps. When thousands of us give it together, entire camps get through
-            the winter. Generosity across faiths has always worked this way: <em>zakat</em> is
-            2.5%, the tithe is 10%, and 5% sits between them as a fair share for an emergency.
+            the winter. Faiths have always asked the same of us: <em>zakat</em> is
+            2.5% and the tithe is 10%. 5% sits between them, a fair share in an emergency.
           </p>
           <a class="btn btn-primary" href="#calculator">Calculate your 5%</a>
         </div>
@@ -105,25 +127,25 @@
             <span class="stat-label">5% of a monthly salary is about one working day's pay</span>
           </div>
           <div class="stat-card">
-            <span class="stat-num">3 months</span>
-            <span class="stat-label">December to February is the hardest, coldest stretch for displaced families</span>
+            <span class="stat-num">Dec–Feb</span>
+            <span class="stat-label">The coldest, wettest months, when tents flood and children fall ill</span>
           </div>
           <div class="stat-card">
             <span class="stat-num">× thousands</span>
-            <span class="stat-label">Share your pledge. Every person you bring in multiplies the impact.</span>
+            <span class="stat-label">Share your pledge. Every person you bring in multiplies the help.</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CRISES -->
-    <section class="section section-tint" id="crises">
+    <section class="section section-dark" id="crises">
       <div class="container">
         <p class="eyebrow">Where help is needed</p>
-        <h2>Places facing a deadly winter</h2>
+        <h2>Eight places facing a deadly winter</h2>
         <p class="section-lead">
           Situations change quickly. Each card links to <a href="https://reliefweb.int" target="_blank" rel="noopener">ReliefWeb</a>
-          (UN OCHA) for the latest verified reports. Tap "See charities" to filter the directory to that place.
+          (UN OCHA) for the latest verified reports. Choose "Help here" to see the charities working in that place.
         </p>
         <div class="crisis-grid" id="crisis-grid"></div>
       </div>
@@ -135,7 +157,7 @@
         <p class="eyebrow">Your 5%</p>
         <h2>What does 5% of your salary look like?</h2>
         <div class="calc">
-          <form class="calc-form" id="calc-form" onsubmit="return false">
+          <form class="calc-form" id="calc-form">
             <label for="salary">Monthly take-home salary</label>
             <div class="input-row">
               <select id="currency" aria-label="Currency"></select>
@@ -144,6 +166,10 @@
             <label for="percent">Percentage you'll give: <output id="percent-out">5%</output></label>
             <input id="percent" type="range" min="1" max="20" step="0.5" value="5">
             <p class="hint">We suggest 5%, but any amount helps. Slide to whatever feels right.</p>
+            <figure class="calc-photo">
+              <img src="images/syria.jpg" alt="A young Syrian refugee boy outside his family's timber and plastic-sheet shelter in Lebanon's Bekaa Valley" loading="lazy" width="1000" height="666">
+              <figcaption class="photo-caption" data-credit="syria"></figcaption>
+            </figure>
           </form>
 
           <div class="calc-results" aria-live="polite">
@@ -177,8 +203,18 @@
         <h2>Charities working on the ground</h2>
         <p class="section-lead">
           Every organisation below delivers aid inside crisis zones. Links open the charity's official website,
-          so you donate to them directly. Filter by place or by what you want to fund.
+          so you donate to them directly. Choose a place to see who is helping there.
         </p>
+
+        <figure class="situation" id="situation" aria-live="polite">
+          <img id="situation-img" src="images/gaza2.jpg" alt="" loading="lazy">
+          <div class="situation-shade" aria-hidden="true"></div>
+          <figcaption class="situation-text">
+            <span class="situation-place" id="situation-place">Everywhere the need is greatest</span>
+            <span class="situation-line" id="situation-line">Choose a place below to see the organisations helping there.</span>
+            <span class="photo-caption" id="situation-credit"></span>
+          </figcaption>
+        </figure>
 
         <div class="filters" role="group" aria-label="Filter charities">
           <div class="filter-group">
@@ -220,6 +256,10 @@
             reminder for your payday and a message you can share to bring friends, family and colleagues with you.
           </p>
           <p class="hint">Nothing is sent to us. Your pledge stays on your device.</p>
+          <figure class="pledge-photo">
+            <img src="images/congo2.jpg" alt="Children in the Nyanzale camp for displaced people, North Kivu, Democratic Republic of the Congo" loading="lazy" width="1000" height="665">
+            <figcaption class="photo-caption" data-credit="congo2"></figcaption>
+          </figure>
         </div>
         <form class="pledge-form" id="pledge-form">
           <label for="p-name">Your first name (optional)</label>
@@ -241,7 +281,7 @@
               <a class="btn btn-share" id="share-fb" target="_blank" rel="noopener">Facebook</a>
               <button class="btn btn-share" type="button" id="share-copy">Copy message</button>
             </div>
-            <button class="btn btn-ghost-dark btn-block" type="button" id="ics-btn">📅 Add monthly payday reminder</button>
+            <button class="btn btn-ghost-dark btn-block" type="button" id="ics-btn">Add monthly payday reminder</button>
           </div>
         </form>
       </div>
@@ -272,18 +312,25 @@
           <summary>Can I give my zakat or sadaqah through these charities?</summary>
           <p>Several listed organisations, including Islamic Relief, Human Appeal and Muslim Hands, run zakat-compliant funds. Check each charity's zakat policy on their website.</p>
         </details>
+        <details>
+          <summary>Where do the photos come from?</summary>
+          <p>Every photo on this page is a real photograph from the place it describes, taken by humanitarian photographers and journalists and published under an open licence. Full credits are at the bottom of the page.</p>
+        </details>
       </div>
     </section>
 
     <!-- CTA -->
     <section class="cta">
+      <img class="cta-bg" src="images/sudan.jpg" alt="" loading="lazy">
+      <div class="cta-shade" aria-hidden="true"></div>
       <div class="container cta-inner">
         <h2>No one should freeze, starve or go without shelter because of where they were born.</h2>
-        <p>Give 5% this winter, then ask three people to do the same.</p>
+        <p>Give 5% this winter. Then ask three people to do the same.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#charities">Donate to a charity</a>
           <button class="btn btn-ghost" type="button" id="share-site">Share this page</button>
         </div>
+        <p class="photo-caption" data-credit="sudan"></p>
       </div>
     </section>
   </main>
@@ -292,11 +339,16 @@
     <div class="container footer-inner">
       <p><strong>5% for Humanity</strong> is an independent, non-commercial awareness campaign. It isn't affiliated with any charity listed here and takes no money.</p>
       <p>Crisis information: <a href="https://reliefweb.int" target="_blank" rel="noopener">ReliefWeb</a> · <a href="https://www.unocha.org" target="_blank" rel="noopener">UN OCHA</a>. Charity checks: <a href="https://www.charitynavigator.org" target="_blank" rel="noopener">Charity Navigator</a>.</p>
+      <details class="credits">
+        <summary>Photo credits</summary>
+        <ul id="credits-list"></ul>
+      </details>
       <p class="footer-small">Made with care for everyone living through this winter.</p>
     </div>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="photos.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
